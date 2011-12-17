@@ -1,0 +1,7 @@
+## Interface: 40300
+## Title: YorsahjHelper
+## Author: Quaiche of Dragonblight
+## Version: 1.0
+## Notes: A simple addon to help your raid manage Yorsahj kill orders. Easy to configure kill orders in the lua file.
+
+YorsahjHelper.lua
