@@ -14,7 +14,7 @@
 -- The kill priority you want
 local killPriority = { "PURPLE", "GREEN", "YELLOW" }
 
--- Set this to false if you don't want the raid warning about the kill
+-- Set this to false if you don't want the raid warning about the kill target
 local emphasizeKill = true
 
 -- Set this to false if you don't want the informational messages
