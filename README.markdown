@@ -5,7 +5,7 @@ Description
 -----------
 
 YorsahjHelper is a simple addon for World of Warcraft to help groups kill the correct set of globules
-(adds) in the Yor'sahj the Unsleeping encounter.
+(adds) in the Yor'sahj the Unsleeping encounter in the Dragon Soul raid instance.
 
 **NOTE:** This addon only works for the Normal mode encounter. Heroic mode spawns for adds and uses
 a compeltely different priority system that is not supported.
