@@ -1,9 +1,9 @@
 ﻿--::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::--
--- Title					YorsahjHelper
--- Description		A simple addon to help your raid manage Yorsahj kill orders
--- Author					Quaiche of Dragonblight
--- Credits				Spell IDs from Yorsahj Automatic Raidwarnings by Tom and Gints
--- License				The MIT License (http://opensource.org/licenses/MIT)
+-- Title          YorsahjHelper
+-- Description    A simple addon to help your raid manage Yorsahj kill orders
+-- Author         Quaiche of Dragonblight
+-- Credits        Spell IDs from Yorsahj Automatic Raidwarnings by Tom and Gints
+-- License        The MIT License (http://opensource.org/licenses/MIT)
 --::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::--
 
 

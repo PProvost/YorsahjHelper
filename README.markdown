@@ -40,3 +40,9 @@ All configuration parameters are at the top of the file. The defaults are shown 
 
 There is also a table in the config section that maps the boss's spell ID to the adds which are spawned but
 that should not require modification.
+
+Credits
+-------
+
+* Spell IDs from Yorsahj Automatic Raidwarnings by Tom and Gints
+* Thanks to my guild for putting up with me working out some of the bugs
