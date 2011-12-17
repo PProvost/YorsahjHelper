@@ -52,11 +52,23 @@ end
 local CreateFrame = CreateFrame
 if not CreateFrame then
 	CreateFrame = function(...)
-		local table = {}
-		table.RegisterEvent = function(...) end
-		table.SetScript = function(...) end
-		return table
+		local frame = {}
+		frame.RegisterEvent = function(...) end
+		frame.SetScript = function(self, event, script) end
+		return frame
 	end
+	Debug = function(...)
+		print(...)
+	end
+else
+	Debug = function(...) end
+end
+
+--------------------------------------------------------------------------------
+-- A little helper to help figure out if we're in LFR or not
+--------------------------------------------------------------------------------
+local function IsRaidLFR()
+		if IsPartyLFG() and IsInLFGDungeon() then return true end
 end
 
 --------------------------------------------------------------------------------
@@ -64,7 +76,7 @@ end
 -- what you should kill and then what you should do after
 -- E.g. HandleBlobs("PURPLE", "GREEN", "BLUE")
 --------------------------------------------------------------------------------
-function HandleBlobs(...)
+local function HandleBlobs(...)
 	local args = {...}
 
 	-- Make a set for quick lookups
@@ -73,7 +85,7 @@ function HandleBlobs(...)
 
 	-- Announce the spawning blobs
 	if useInformationalMessages == true then
-		SendChatMessage("== "..table.concat(args, ", ").." ==" , informationalChannel)
+		SendChatMessage("==== "..table.concat(args, ", ").." ====" , informationalChannel)
 	end
 
 	-- Figure out what the kill is and remove it from the set
@@ -88,13 +100,14 @@ function HandleBlobs(...)
 
 	-- Send the informational messages based on what is left in the set
 	if useInformationalMessages == true then
+		local isLFR = IsRaidLFR()
 		local message = {}
-		if blobs["BLUE"] then table.insert(message,"Kill mana void") end
-		if blobs["GREEN"] then table.insert(message,"Stay 4-yds from others") end
-		if blobs["RED"] then table.insert(message,"Stack close to boss") end
-		if blobs["BLACK"] then table.insert(message,"AOE the adds") end
-		if blobs["YELLOW"] then table.insert(message,"BIG HEALS!") end
-		if blobs["PURPLE"] then table.insert(message,"Heals cause damage") end
+		if blobs["PURPLE"] then table.insert(message,"Every 5th heal received will cause raid-wide damage (purple)") end
+		if blobs["GREEN"] then table.insert(message, isLFR and "Stack up!" or "Stay 4-yds from others (green)") end
+		if blobs["YELLOW"] then table.insert(message,"Boss hits 50% faster and does AOE (yellow)") end
+		if blobs["BLUE"] then table.insert(message,"Kill mana void (blue)") end
+		if blobs["RED"] then table.insert(message,"Stack close to boss (red)") end
+		if blobs["BLACK"] then table.insert(message,"AOE the adds (black)") end
 		SendChatMessage(" "..table.concat(message, ", "), informationalChannel)
 	end
 end
@@ -106,12 +119,14 @@ end
 -- elsewhere, things might get funky. Also, it will be enabled for LFR groups,
 -- which may annoy people. You have been warned.
 --------------------------------------------------------------------------------
-local frame = CreateFrame("FRAME")
-frame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-frame:SetScript("OnEvent", function(...)
+function YorsahjHelper_OnEvent(...)
 	local spellID = select(7,...)
 	if spellCombos[spellID] then
 		HandleBlobs( unpack( spellCombos[spellID] ) )
 	end
-end)
+end
+
+local frame = CreateFrame("FRAME")
+frame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+frame:SetScript("OnEvent", Yorsahj_Helper_OnEvent)
 
