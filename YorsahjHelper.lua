@@ -11,6 +11,13 @@
 -- Configuration - adjust these to suit your needs
 --------------------------------------------------------------------------------
 
+local debugf = tekDebug and tekDebug:GetFrame("YorsahjHelper")
+local function Debug(...) if debugf then debugf:AddMessage(string.join(", ", ...)) end end
+
+local SendChatMessage = function(...)
+	Debug(...)
+end
+
 -- The kill priority you want
 local killPriority = { "PURPLE", "GREEN", "YELLOW" }
 
@@ -36,33 +43,6 @@ local spellCombos = {
 	[105439] = { "BLUE", "BLACK", "YELLOW" },
 	[105440] = { "PURPLE", "RED", "BLACK" },
 }
-
---------------------------------------------------------------------------------
--- Mock out the Wow APIs we use
--- FOR COMMAND LINE TESTING PURPOSES. 
--- Has no effect in game and can be deleted or ignored as you see fit
---------------------------------------------------------------------------------
-local SendChatMessage = SendChatMessage
-if not SendChatMessage then
-	SendChatMessage = function(message, chatType, ...)
-		chatType = chatType or "SAY"
-		print(chatType..": "..message)
-	end
-end
-local CreateFrame = CreateFrame
-if not CreateFrame then
-	CreateFrame = function(...)
-		local frame = {}
-		frame.RegisterEvent = function(...) end
-		frame.SetScript = function(self, event, script) end
-		return frame
-	end
-	Debug = function(...)
-		print(...)
-	end
-else
-	Debug = function(...) end
-end
 
 --------------------------------------------------------------------------------
 -- A little helper to help figure out if we're in LFR or not
@@ -121,12 +101,14 @@ end
 --------------------------------------------------------------------------------
 function YorsahjHelper_OnEvent(...)
 	local spellID = select(7,...)
-	if spellCombos[spellID] then
+	-- Debug("SpellID: " .. spellID or "Unknown")
+	if spellID and spellCombos[spellID] then
+		Debug("FOUND!")
 		HandleBlobs( unpack( spellCombos[spellID] ) )
 	end
 end
 
 local frame = CreateFrame("FRAME")
 frame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-frame:SetScript("OnEvent", Yorsahj_Helper_OnEvent)
+frame:SetScript("OnEvent", YorsahjHelper_OnEvent)
 
