@@ -1,6 +1,13 @@
 YorsahjHelper
 =============
 
+Important!!
+-----------
+
+This addon is not currently usable. For testing purposes it currently dumps all of the output
+messages to a tekDebug frame (or into the bit bucket if you don't have tekDebug). The basic 
+structure is there and the events are firing correctly, but I've not finished it yet.
+
 Description
 -----------
 
@@ -40,6 +47,17 @@ All configuration parameters are at the top of the file. The defaults are shown 
 
 There is also a table in the config section that maps the boss's spell ID to the adds which are spawned but
 that should not require modification.
+
+Todo List
+---------
+
+* Support for Heroic (4 adds instead of 3)
+* In-game configurable priority list.
+* Different priority lists for LFR, Normal and Heroic
+* Smart-disable messages if the raid leader has it
+* Only send message if Raid Leader or Assistant
+* If in LFR, ask whether to enable or not
+* Only trap spellcast events when in Yorsahj's sub-zone
 
 Credits
 -------
