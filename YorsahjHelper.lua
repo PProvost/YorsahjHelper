@@ -14,7 +14,7 @@
 local debugf = tekDebug and tekDebug:GetFrame("YorsahjHelper")
 local function Debug(...) if debugf then debugf:AddMessage(string.join(", ", ...)) end end
 
-local SendChatMessage = function(...)
+local _SendChatMessage = function(...)
 	Debug(...)
 end
 
